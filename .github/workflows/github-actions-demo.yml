@@ -1,9 +1,19 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Example
+
+on: push
+
 jobs:
-  Explore-GitHub-Actions:
+  echo:
     runs-on: ubuntu-latest
+    
     steps:
-      - run: echo "Hello World"
-      - run: cat README.md
+    - run: echo -n -e "HELLO\n !\n World!" > text.txt
+
+    - uses: pCYSl5EDgo/cat@master
+      id: hello
+      with:
+        path: text.txt
+
+    - run: echo $TEXT
+      env:
+        TEXT: ${{ steps.hello.outputs.text }}
