@@ -1,19 +1,18 @@
-name: Example
+name: Show File Contents
 
-on: push
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  
 
 jobs:
-  echo:
+  show-file:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - run: cat README.md > text.txt
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - uses: pCYSl5EDgo/cat@master
-      id: hello
-      with:
-        path: text.txt
+      - name: Display file contents
+        run: cat README.md
 
-    - run: echo $TEXT
-      env:
-        TEXT: ${{ steps.hello.outputs.text }}
